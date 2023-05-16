@@ -86,9 +86,15 @@ async def quote(ctx, quote, author="someone", q="t"):
     quotes.append([message])
     collection.update_one({"_id": "quotes"}, {"$set": {"quotes": quotes}})
 
+@client.command()
+async def help(ctx, section="p"):
+    if section[0] == "q":
+        await ctx.send("```--quote [quote (must be in quotations)] [person name] [include quotations]\nCreates a quote based on input.\nThe quote must be in quotations.\nIf person name is 'n', then there will be no person being quoted.\nInclude quotations is true by default. Add 'f' to change it to false.\
+            \n\n--quoteget\nNo parameters. Sends a random quote.```")
+
+
 def setupDatabase(message):
     global db
     db = cluster["slagathor_" + message.guild.id]
-
 
 client.run(config.bot_id)
