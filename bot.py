@@ -12,10 +12,11 @@ import config
 
 prefix = '--'
 
+test = {"hello": "E"}
+
 mongoConnection = "mongodb+srv://mfbot:J3lvXkeAbHnV7kHQ@mfbot.pjgnt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 cluster = MongoClient(mongoConnection, tlsCAFile=certifi.where())
-
 
 
 client = commands.Bot(command_prefix = prefix)
@@ -23,6 +24,7 @@ client = commands.Bot(command_prefix = prefix)
 @client.event
 async def on_ready():
 	print("Bot is ready")
+
 
 @client.command()
 async def ping(ctx):
@@ -58,16 +60,21 @@ async def _8ball(ctx, *, question):
 
 @client.command()
 async def quoteget(ctx):
-    collection = db["data"]
-    user = collection.find({"_id": "quotes"})
-    for items in user:
-        quotes = items["quotes"]
-    index = random.randint(0, len(quotes))
-    quote = quotes[index]
-    await ctx.send("```" + str(index+1) + ": " + quote + "```")
+    db = cluster[ctx.guild.id]
+    if db == None:
+        await ctx.send("You don't have any quotes yet!")
+    else:
+        collection = db["data"]
+        user = collection.find({"_id": "quotes"})
+        for items in user:
+            quotes = items["quotes"]
+        index = random.randint(0, len(quotes))
+        quote = quotes[index]
+        await ctx.send("```" + str(index+1) + ": " + quote + "```")
 
 @client.command()
 async def quote(ctx, quote, author="someone", q="t"):
+    db = cluster[ctx.guild.id]
     collection = db["data"]
     quote = [quote, author]
     await ctx.message.delete()
@@ -91,10 +98,5 @@ async def help(ctx, section="p"):
     if section[0] == "q":
         await ctx.send("```--quote [quote (must be in quotations)] [person name] [include quotations]\nCreates a quote based on input.\nThe quote must be in quotations.\nIf person name is 'n', then there will be no person being quoted.\nInclude quotations is true by default. Add 'f' to change it to false.\
             \n\n--quoteget\nNo parameters. Sends a random quote.```")
-
-
-def setupDatabase(message):
-    global db
-    db = cluster["slagathor_" + message.guild.id]
 
 client.run(config.bot_id)
