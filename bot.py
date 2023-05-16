@@ -8,6 +8,7 @@ import pymongo
 from pymongo import MongoClient
 import certifi
 import asyncio
+import config
 
 prefix = '--'
 
@@ -89,4 +90,4 @@ def setupDatabase(message):
     global db
     db = cluster["slagathor_" + message.guild.id]
 
-client.run('OTQ4NDIyOTIzMTAwNzYyMTMy.Yh7lrQ.trpvF3GnznBf-cEThZs_5vtZtbA')
+client.run(config.bot_id)
