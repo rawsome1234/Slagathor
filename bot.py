@@ -90,4 +90,5 @@ def setupDatabase(message):
     global db
     db = cluster["slagathor_" + message.guild.id]
 
+
 client.run(config.bot_id)
