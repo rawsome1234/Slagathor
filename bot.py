@@ -89,4 +89,4 @@ def setupDatabase(message):
     global db
     db = cluster["slagathor_" + message.guild.id]
 
-client.run('OTQ4NDIyOTIzMTAwNzYyMTMy.Yh7lrQ.trpvF3GnznBf-cEThZs_5vtZtbA')
+client.run()
