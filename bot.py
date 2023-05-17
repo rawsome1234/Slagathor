@@ -71,10 +71,12 @@ async def quoteget(ctx, id=None):
         if len(quotes) == 0:
             await ctx.send("There are no quotes yet!")
             return
+        index = random.randint(0, len(quotes)-1)
         if id != None:
-            index = id -1
-        else:
-            index = random.randint(0, len(quotes)-1)
+            if isdigit(id):
+                index = int(id) -1
+            else:
+                print("Please input a valid number for the id.")
         quote = quotes[index][0]
         quote = quote[3:]
         await ctx.send("```" + str((index+1)) + ": " + quote)
@@ -106,8 +108,13 @@ async def quote(ctx, quote, author="someone", q="t"):
 
 @client.command()
 async def slaghelp(ctx, section="p"):
-    if section[0] == "q":
+    if section[0].lower() == "q":
         await ctx.send("```--quote [quote (must be in quotations)] [person name] [include quotations]\nCreates a quote based on input.\nThe quote must be in quotations.\nIf person name is 'n', then there will be no person being quoted.\nInclude quotations is true by default. Add 'f' to change it to false.\
-            \n\n--quoteget\nNo parameters. Sends a random quote.```")
+            \n\n--quoteget [quoteid]\nSends a random quote.\nIf quoteid is a number, sends the quote with the specified quoteid.```")
+    elif section[0].lower() == "m":
+        await ctx.send("```--ping\nNo parameters.\nTest command for how responsive the bot is.\
+            \n\n--8ball [message]\nAn 8 Ball commands. It will respond to your inquiries in a limited fashion.\nMessage is everything after the command is called.```")
+    else:
+        await ctx.send("```--slaghelp [section]\nThe help command for the bot.\nSection is a page. Put \"Quote\" for quote commands. Put \"Misc\" for miscellaneous commands.```")
 
 client.run(config.bot_id)
