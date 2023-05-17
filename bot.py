@@ -95,7 +95,10 @@ async def quote(ctx, quote, author="someone", q="t"):
     for items in user:
         quotes = items["quotes"]
     quotes.append([message])
-    collection.update_one({"_id": "quotes"}, {"$set": {"quotes": quotes}})
+    if len(quotes) == 1:
+        collection.insert_one({"_id": "quotes", "quotes": quotes})
+    else:
+        collection.update_one({"_id": "quotes"}, {"$set": {"quotes": quotes}})
 
 @client.command()
 async def slaghelp(ctx, section="p"):
