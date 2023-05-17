@@ -65,11 +65,15 @@ async def quoteget(ctx):
     else:
         collection = db["data"]
         user = collection.find({"_id": "quotes"})
+        quotes = []
         for items in user:
             quotes = items["quotes"]
         index = random.randint(0, len(quotes))
-        quote = quotes[index]
-        await ctx.send("```" + str(index+1) + ": " + quote + "```")
+        if len(quotes) == 0:
+            await ctx.send("There are no quotes yet!")
+        else:
+            quote = quotes[index]
+            await ctx.send("```" + str(index+1) + ": " + quote + "```")
 
 @client.command()
 async def quote(ctx, quote, author="someone", q="t"):
@@ -87,6 +91,7 @@ async def quote(ctx, quote, author="someone", q="t"):
     message += "```"
     await ctx.send(message)
     user = collection.find({"_id": "quotes"})
+    quotes = []
     for items in user:
         quotes = items["quotes"]
     quotes.append([message])
