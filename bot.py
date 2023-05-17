@@ -112,7 +112,7 @@ async def slaghelp(ctx, section="p"):
         await ctx.send("```--quote [quote (must be in quotations)] [person name] [include quotations]\nCreates a quote based on input.\nThe quote must be in quotations.\nIf person name is 'n', then there will be no person being quoted.\nInclude quotations is true by default. Add 'f' to change it to false.\
             \n\n--quoteget [quoteid]\nSends a random quote.\nIf quoteid is a number, sends the quote with the specified quoteid.```")
     elif section[0].lower() == "m":
-        await ctx.send("```--ping\nNo parameters.\nTest command for how responsive the bot is.\
+        await ctx.send("```--ping \nNo parameters.\nTest command for how responsive the bot is.\
             \n\n--8ball [message]\nAn 8 Ball commands. It will respond to your inquiries in a limited fashion.\nMessage is everything after the command is called.```")
     else:
         await ctx.send("```--slaghelp [section]\nThe help command for the bot.\nSection is a page. Put \"Quote\" for quote commands. Put \"Misc\" for miscellaneous commands.```")
