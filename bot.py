@@ -73,7 +73,7 @@ async def quoteget(ctx, id=None):
             return
         index = random.randint(0, len(quotes)-1)
         if id != None:
-            if isdigit(id):
+            if id.isdigit():
                 index = int(id) -1
             else:
                 print("Please input a valid number for the id.")
