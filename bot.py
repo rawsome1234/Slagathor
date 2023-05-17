@@ -58,7 +58,7 @@ async def _8ball(ctx, *, question):
     await ctx.send(f"Question: {question}\nAnswer: {responses[index]}")
 
 @client.command()
-async def quoteget(ctx):
+async def quoteget(ctx, id=None):
     db = cluster[str(ctx.guild.id)]
     if db == None:
         await ctx.send("You don't have any quotes yet!")
@@ -70,11 +70,14 @@ async def quoteget(ctx):
             quotes = items["quotes"]
         if len(quotes) == 0:
             await ctx.send("There are no quotes yet!")
+            return
+        if id != None:
+            index = id -1
         else:
             index = random.randint(0, len(quotes)-1)
-            quote = quotes[index][0]
-            quote = quote[3:]
-            await ctx.send("```" + str((index+1)) + ": " + quote)
+        quote = quotes[index][0]
+        quote = quote[3:]
+        await ctx.send("```" + str((index+1)) + ": " + quote)
 
 @client.command()
 async def quote(ctx, quote, author="someone", q="t"):
