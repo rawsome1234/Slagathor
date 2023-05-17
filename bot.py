@@ -73,7 +73,7 @@ async def quoteget(ctx):
         else:
             index = random.randint(0, len(quotes))
             quote = quotes[index]
-            await ctx.send("```" + str(index+1) + ": " + quote + "```")
+            await ctx.send("```" + str((index+1)) + ": " + quote + "```")
 
 @client.command()
 async def quote(ctx, quote, author="someone", q="t"):
