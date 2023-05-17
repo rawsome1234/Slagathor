@@ -59,7 +59,7 @@ async def _8ball(ctx, *, question):
 
 @client.command()
 async def quoteget(ctx):
-    db = cluster[(str)ctx.guild.id]
+    db = cluster[str(ctx.guild.id)]
     if db == None:
         await ctx.send("You don't have any quotes yet!")
     else:
@@ -73,7 +73,7 @@ async def quoteget(ctx):
 
 @client.command()
 async def quote(ctx, quote, author="someone", q="t"):
-    db = cluster[(str)ctx.guild.id]
+    db = cluster[str(ctx.guild.id)]
     collection = db["data"]
     quote = [quote, author]
     await ctx.message.delete()
