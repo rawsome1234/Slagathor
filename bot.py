@@ -72,6 +72,7 @@ async def quoteget(ctx):
             await ctx.send("There are no quotes yet!")
         else:
             index = random.randint(0, len(quotes))
+            print(index)
             quote = quotes[index][0]
             quote = quote[3:]
             await ctx.send("```" + str((index+1)) + ": " + quote)
@@ -82,11 +83,11 @@ async def quote(ctx, quote, author="someone", q="t"):
     collection = db["data"]
     quote = [quote, author]
     await ctx.message.delete()
-    message = ""
+    message = "```\""
     if(q[0] == "t"):
-        message = "```\"" + quote[0] + "\""
+        message += quote[0] + "\""
     else:
-        message = "```" + quote[0]
+        message = quote[0]
     if(author != "n"):
         message += " -" + quote[1]
     message += "```"
