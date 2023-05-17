@@ -71,8 +71,7 @@ async def quoteget(ctx):
         if len(quotes) == 0:
             await ctx.send("There are no quotes yet!")
         else:
-            index = random.randint(0, len(quotes))
-            print(index)
+            index = random.randint(0, len(quotes)-1)
             quote = quotes[index][0]
             quote = quote[3:]
             await ctx.send("```" + str((index+1)) + ": " + quote)
