@@ -12,14 +12,13 @@ import config
 
 prefix = '--'
 
-test = {"hello": "E"}
-
 mongoConnection = "mongodb+srv://mfbot:J3lvXkeAbHnV7kHQ@mfbot.pjgnt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 cluster = MongoClient(mongoConnection, tlsCAFile=certifi.where())
 
+intents = discord.Intents.all()
 
-client = commands.Bot(command_prefix = prefix)
+client = commands.Bot(command_prefix = prefix, intents = intents)
 
 @client.event
 async def on_ready():
